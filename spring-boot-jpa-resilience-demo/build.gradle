@@ -17,6 +17,9 @@ repositories {
 }
 
 dependencies {
+	implementation platform('io.projectreactor:reactor-bom:2022.0.5')
+
+	implementation 'io.projectreactor:reactor-core'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
