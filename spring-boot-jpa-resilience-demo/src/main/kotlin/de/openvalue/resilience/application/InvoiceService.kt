@@ -4,7 +4,8 @@ import de.openvalue.resilience.adapter.repository.OrderRepository
 import de.openvalue.resilience.adapter.repository.StreamOffset
 import de.openvalue.resilience.adapter.repository.StreamOffsetRepository
 import de.openvalue.resilience.domain.OrderReceived
-import io.github.resilience4j.retry.annotation.Retry
+import io.github.resilience4j.reactor.retry.RetryOperator
+import io.github.resilience4j.retry.RetryConfig
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.mail.SimpleMailMessage
@@ -23,6 +24,14 @@ class InvoiceService(val mailSender: JavaMailSender,
 
     private val logger = LoggerFactory.getLogger(InvoiceService::class.java)
 
+    private val retryConfig: RetryConfig =
+            RetryConfig.custom<RetryConfig>()
+                    .maxAttempts(10)
+                    .waitDuration(Duration.ofSeconds(5))
+                    .build()
+
+    private var retry: io.github.resilience4j.retry.Retry = io.github.resilience4j.retry.Retry.of("InvoiceService", retryConfig)
+
     val stream = Mono.just(Unit).repeat().delayElements(STREAM_INTERVAL)
             .flatMap {
                 val offset = streamOffsetRepository.findById(OFFSET_NAME).map { it.value }.orElse(NO_OFFSET)
@@ -31,6 +40,7 @@ class InvoiceService(val mailSender: JavaMailSender,
             .map { OrderReceived(it) }
             .map { onEvent(it) }
             .map { streamOffsetRepository.save(StreamOffset(OFFSET_NAME, it.orderEntity.createdDate!!)) }
+            .transformDeferred(RetryOperator.of(retry))
 
 
     @PostConstruct
@@ -38,7 +48,6 @@ class InvoiceService(val mailSender: JavaMailSender,
         stream.subscribe { logger.info("Consumed $it") }
     }
 
-    @Retry(name = "InvoiceService")
     fun onEvent(event: OrderReceived): OrderReceived {
         with(event.orderEntity) {
             logger.info("Sending email for received order $this")
