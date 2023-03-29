@@ -22,7 +22,7 @@
     * *a) [Simple retry](https://github.com/enisspahi/spring-boot-jpa-resilience-sample)*:  Invoice e-mail delivery retried during mail sending failures, however messages are lost on service restarts.  
     * *b) [Event streaming with at-least-once-delivery](https://github.com/enisspahi/spring-boot-jpa-resilience-sample/tree/alod):* Invoice e-mail delivery retried even after service restarts.
 * ***Solution 2: [Spring Boot - MongoDB Change streams with at-least-once-delivery](https://github.com/enisspahi/spring-boot-mongodb-changestreams-sample)***: Invoice e-mail delivery based on MongoDB Change Streams. Invoice e-mail delivery retried even after service restarts.
-* ***Solution 3: [Akka - Event Sourcing and CQRS]()***
+* ***Solution 3: [Akka - Event Sourcing and CQRS](https://github.com/enisspahi/akka-eventsourcing-cqrs-sample)***: Invoice e-mail delivery based on TODO
 
 **Evaluation:**
 * `1.a` has an easy to implement, however retries are not restart-proof. 
