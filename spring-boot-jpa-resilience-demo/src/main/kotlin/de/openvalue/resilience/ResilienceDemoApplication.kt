@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableAsync
 
 @SpringBootApplication
 @EnableAsync
-class ResilienceDemoDemoApplication
+class ResilienceDemoApplication
 
 fun main(args: Array<String>) {
-	runApplication<ResilienceDemoDemoApplication>(*args)
+	runApplication<ResilienceDemoApplication>(*args)
 }
