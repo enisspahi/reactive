@@ -24,4 +24,13 @@
 * ***Solution 2: [Spring Boot - MongoDB Change streams with at-least-once-delivery](https://github.com/enisspahi/spring-boot-mongodb-changestreams-sample)***: Invoice e-mail delivery based on MongoDB Change Streams. Invoice e-mail delivery retried even after service restarts.
 * ***Solution 3: [Akka - Event Sourcing and CQRS]()***
 
+**Evaluation:**
+* `1.a` has an easy to implement, however retries are not restart-proof. 
+* On `1.b` and `2` multiple instance of the service would create multiple `InvoiceProcessor` streams which may cause duplicate e-mails, furthermore inconsistent stream behavior. Application should be adjusted to ensure single instance of this stream.
+* 
+
+**Alternative approaches:**
+
+* **Using a message queue:** `OrderService` stores the order to the database and publishes an `OrderReceived` event to Kafka (or an alternative message queue). 
+* **Change Data Capture (CDC):**
 
