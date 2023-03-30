@@ -9,7 +9,6 @@
 
 **THEN** Will system will accept the order and issue an invoice to the user via e-mail
 
-#### Context Diagram
 ![invoice_processing_usercase.drawio.svg](invoice_processing_usercase.drawio.svg)
 
 #### Non functional requirements
