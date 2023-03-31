@@ -2,7 +2,7 @@
 
 ## Resilience
 
-### Use Cases 1:
+### Use Case 1: Invoice E-Mails
 **GIVEN** The user has selected picked some items on it basket
 
 **WHEN** The user submits the order items and its email to the system
