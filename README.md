@@ -27,14 +27,15 @@
 
 **Evaluation:**
 * `1.a` has an easy to implement, however retries are not restart-proof. 
-* On `1.b` and `2` multiple instance of the service would create multiple `InvoiceProcessor` streams which may cause duplicate e-mails, furthermore inconsistent stream behavior. Application should be adjusted to ensure single instance of this stream.
-* `3` provides exactly-once-delivery and provides one instance at a time. However Akka has relatively higher complexity.     
+* On `1.b` and `2` multiple instance of the service would create multiple `InvoiceProcessor` streams which may cause duplicate e-mails, furthermore inconsistent stream behavior. Configuration should be adjusted to ensure single instance of this stream (Static configuration, K8 Stateful set, etc).
+* `3` provides exactly-once-delivery and provides one instance at a time. However, Akka has relatively higher complexity.     
 
-**Alternative approaches:**
+**Alternative solutions:**
 
 * **Messaging** 
-  * **Dual Writes:** `OrderService` stores the order to the database and emits an `OrderReceived` event to Kafka (or an alternative message queue).
-  * **Change Data Capture (CDC):** Kafka Connect with Debezium
+  * **Dual Writes:** `OrderService` atomically stores the order and emits `OrderReceived` message to Kafka (or an alternative message queue).
+  * **Change Data Capture (CDC):** `OrderService` stores the order. Kafka Connect with Debezium captures the data and writes to Kafka.
+  * **Kafka via CQRS:** `OrderService` stores the order. Data are streamed as messages to Kafka similarly like `1.b`, `2`, `3`.
 * **Scheduled Batches**
   * `@Scheduled`
   * ...
