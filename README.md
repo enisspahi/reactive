@@ -13,7 +13,7 @@
 
 #### Non functional requirements
 * Invoicing may happen asynchronously
-* Sending out Invoice e-mail should be guaranteed
+* Sending out Invoice e-mail should be resilient
 
 #### Failure scenarios
 * 
