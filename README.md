@@ -32,7 +32,7 @@
 
 **Alternative approaches:**
 
-* **Messing** 
+* **Messaging** 
   * **Dual Writes:** `OrderService` stores the order to the database and emits an `OrderReceived` event to Kafka (or an alternative message queue).
   * **Change Data Capture (CDC):** Kafka Connect with Debezium
 * **Scheduled Batches**
