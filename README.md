@@ -32,7 +32,7 @@
 
 **Alternative solutions:**
 
-* **Messaging** 
+* **Messaging:**
   * **Dual Writes:** `OrderService` atomically stores the order and emits `OrderReceived` message to Kafka (or an alternative message queue).
   * **Change Data Capture (CDC):** `OrderService` stores the order. Kafka Connect with Debezium captures the data and writes to Kafka.
   * **Kafka via CQRS:** `OrderService` stores the order. Data are streamed as messages to Kafka similarly like `1.b`, `2`, `3`.
