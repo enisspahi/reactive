@@ -33,5 +33,6 @@
 **Alternative approaches:**
 
 * **Using a message queue:** `OrderService` stores the order to the database and publishes an `OrderReceived` event to Kafka (or an alternative message queue). 
-* **Change Data Capture (CDC):**
+* **Change Data Capture (CDC)**
+* **Scheduled Batches**
 
