@@ -21,7 +21,7 @@
 #### Solutions with various Tools
 * ***Solution 1: Spring Boot - JPA sample***
     * *a) [Simple retry](https://github.com/enisspahi/spring-boot-jpa-resilience-sample)*:  Invoice e-mail delivery retried during mail sending failures, however messages are lost on service restarts.  
-    * *b) [Event streaming with at-least-once-delivery](https://github.com/enisspahi/spring-boot-jpa-resilience-sample/tree/alod):* Invoice e-mail delivery retried even after service restarts.
+    * *b) [Event streaming with at-least-once-delivery](https://github.com/enisspahi/spring-boot-jpa-resilience-sample):* Invoice e-mail delivery retried even after service restarts.
 * ***Solution 2: [Spring Boot - MongoDB Change streams with at-least-once-delivery](https://github.com/enisspahi/spring-boot-mongodb-changestreams-sample)***: Invoice e-mail delivery based on MongoDB Change Streams. Invoice e-mail delivery retried even after service restarts.
 * ***Solution 3: [Akka - Event Sourcing and CQRS](https://github.com/enisspahi/akka-eventsourcing-cqrs-sample)***: Orders received and emitted as events (Event Sourcing), Invoices issued based on event streaming (CQRS). Akka projection API provides exactly-once-delivery guarantee.   
 
